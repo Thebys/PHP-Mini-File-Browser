@@ -51,10 +51,10 @@ if ($pass) {
 if ($ips) {
   $ips = explode(';', $ips);
   $client_ip = $_SERVER['REMOTE_ADDR'];
+  $client_ip_forwarded = $_SERVER['HTTP_X_FORWARDED_FOR'];
   //use this (or other appropriate) header if your script is behind proxy
   //it can be spoofed by attacker 
-  //$client_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  if (!in_array($client_ip, $ips)) {
+  if (!in_array($client_ip, $ips) && !in_array($client_ip_forwarded, $ips)) {
     die('IP is not allowed!');
   }
 }
